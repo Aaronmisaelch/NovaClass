@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #040e3c;
+
+  /* NovaClass — paleta oficial */
+  --color-nova-electric: #0a6dfd;
+  --color-nova-intermediate: #2f94fd;
+  --color-nova-sky: #57b9fd;
+  --color-nova-navy: #040e3c;
+  --color-nova-white: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+
+  --color-nova-electric: var(--color-nova-electric);
+  --color-nova-intermediate: var(--color-nova-intermediate);
+  --color-nova-sky: var(--color-nova-sky);
+  --color-nova-navy: var(--color-nova-navy);
+  --color-nova-white: var(--color-nova-white);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}

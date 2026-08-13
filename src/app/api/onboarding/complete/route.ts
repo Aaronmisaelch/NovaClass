@@ -1,0 +1,12 @@
+import { getSessionUser } from "@/lib/auth/session";
+import { completeOnboarding } from "@/lib/users/profile";
+
+export async function POST() {
+  const sessionUser = await getSessionUser();
+  if (!sessionUser) {
+    return Response.json({ error: "No autenticado." }, { status: 401 });
+  }
+
+  await completeOnboarding(sessionUser.uid);
+  return Response.json({ ok: true });
+}

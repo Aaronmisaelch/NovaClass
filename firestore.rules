@@ -1,0 +1,101 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isGroupMember(groupId) {
+      return request.auth.uid in
+        get(/databases/$(database)/documents/groups/$(groupId)).data.memberIds;
+    }
+
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+
+      match /courses/{courseId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /schedule/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /tasks/{taskId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /groupMemberships/{groupId} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow write: if request.auth != null &&
+          (request.auth.uid == uid || isGroupMember(groupId));
+      }
+
+      match /dashboard/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+
+      match /dashboardWidgets/{widgetId} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+
+    match /groups/{groupId} {
+      allow get: if request.auth != null;
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.leaderId == request.auth.uid
+        && request.resource.data.memberIds == [request.auth.uid];
+      allow update: if request.auth != null &&
+        request.resource.data.leaderId == request.resource.data.memberIds[0] && (
+        // joining: requester adds themselves, capped at 15 members
+        (
+          !(request.auth.uid in resource.data.memberIds) &&
+          request.resource.data.memberIds ==
+            resource.data.memberIds.concat([request.auth.uid]) &&
+          request.resource.data.memberIds.size() <= 15
+        ) ||
+        // self-leave: a current member removes only themselves
+        (
+          request.auth.uid in resource.data.memberIds &&
+          request.resource.data.memberIds ==
+            resource.data.memberIds.removeAll([request.auth.uid])
+        ) ||
+        // leader expels one other member; leader stays leader
+        (
+          resource.data.leaderId == request.auth.uid &&
+          request.resource.data.leaderId == request.auth.uid &&
+          request.auth.uid in request.resource.data.memberIds &&
+          resource.data.memberIds.hasAll(request.resource.data.memberIds) &&
+          request.resource.data.memberIds.size() == resource.data.memberIds.size() - 1
+        )
+      );
+      allow delete: if request.auth != null && isGroupMember(groupId);
+
+      match /members/{uid} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null &&
+          (request.auth.uid == uid || isGroupMember(groupId));
+      }
+
+      match /messages/{messageId} {
+        allow read, write: if request.auth != null && isGroupMember(groupId);
+      }
+
+      match /links/{linkId} {
+        allow read, write: if request.auth != null && isGroupMember(groupId);
+      }
+    }
+
+    // A schedule share is a one-time, immutable snapshot — findable only by
+    // its exact code (no list), created once by whoever shared it, and never
+    // updated or deleted since re-sharing after edits mints a new code
+    // instead of mutating this one.
+    match /scheduleShares/{code} {
+      allow get: if request.auth != null;
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.sharedBy == request.auth.uid
+        && request.resource.data.code == code;
+      allow update, delete: if false;
+    }
+  }
+}
