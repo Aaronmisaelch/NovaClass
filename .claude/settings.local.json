@@ -51,7 +51,10 @@
       "PowerShell(npm uninstall *)",
       "PowerShell(npx next build 2>&1 | Select-Object -Last 150)",
       "Bash(npm run *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "Bash(npm ls *)",
+      "Bash(npm view *)",
+      "Bash(npm install *)"
     ]
   }
 }
