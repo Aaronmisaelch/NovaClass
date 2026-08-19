@@ -15,7 +15,13 @@ export async function POST(request: Request) {
   let decoded;
   try {
     decoded = await getAdminAuth().verifyIdToken(idToken);
-  } catch {
+  } catch (error) {
+    // TODO: diagnóstico temporal — revertir una vez resuelto el 401 en producción.
+    console.error(
+      "[auth/session] verifyIdToken falló:",
+      error instanceof Error ? error.message : error,
+      (error as { code?: string })?.code
+    );
     return Response.json({ error: "Token inválido." }, { status: 401 });
   }
 
