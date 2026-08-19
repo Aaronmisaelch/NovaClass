@@ -17,14 +17,6 @@ function createAdminApp(): App {
     );
   }
 
-  // TODO: diagnóstico temporal — revertir una vez resuelto el 401 en producción.
-  const rawPrivateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY ?? "";
-  console.log("[firebase-admin] Inicializando app admin:", {
-    projectId,
-    privateKeyHasLiteralEscapedNewlines: rawPrivateKey.includes("\\n"),
-    privateKeyLength: rawPrivateKey.length,
-  });
-
   return initializeApp({
     credential: cert({ projectId, clientEmail, privateKey }),
   });
