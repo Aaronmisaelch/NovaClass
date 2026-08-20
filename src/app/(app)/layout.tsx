@@ -21,10 +21,10 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="relative flex h-screen overflow-hidden">
+    <div className="relative flex h-dvh overflow-hidden">
       <AppBackdrop />
       <Sidebar userName={profile.name} userPhotoURL={profile.photoURL} />
-      <div className="relative min-h-0 flex-1 overflow-x-hidden overflow-y-auto pb-24 sm:pb-0">
+      <div className="relative min-h-0 flex-1 overflow-x-hidden overflow-y-auto pb-[calc(6rem+env(safe-area-inset-bottom))] sm:pb-0">
         {children}
       </div>
       <MobileNav />

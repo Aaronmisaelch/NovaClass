@@ -87,12 +87,12 @@ export function ExportMenu({ targetRef }: { targetRef: RefObject<HTMLDivElement 
   }
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative w-full sm:w-auto">
       <button
         type="button"
         disabled={exporting}
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03] disabled:opacity-60"
+        className="flex w-full items-center justify-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03] disabled:opacity-60 sm:w-auto sm:justify-start"
       >
         {exporting ? (
           <LoaderCircle className="h-3.5 w-3.5 animate-spin" />

@@ -15,7 +15,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 sm:hidden">
+    <div className="fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 sm:hidden">
       <div className="flex items-center gap-0.5 rounded-full border border-nova-navy/[0.04] bg-nova-white/70 px-1 py-1 backdrop-blur-lg shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]">
         {MOBILE_NAV_ITEMS.map((item) => {
           const Icon = item.icon;

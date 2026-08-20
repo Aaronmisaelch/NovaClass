@@ -258,17 +258,17 @@ export function ScheduleBoard({
 
   return (
     <main className="relative p-10">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="flex items-center gap-2.5 text-[29px] font-semibold text-nova-navy">
           <span className="h-2 w-2 rounded-full bg-gradient-to-br from-nova-electric to-nova-sky" />
           Schedule
         </h1>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
           <ExportMenu targetRef={gridRef} />
           <button
             type="button"
             onClick={() => setShareDialogOpen(true)}
-            className="flex items-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03]"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03] sm:w-auto sm:justify-start"
           >
             <Share2 className="h-3.5 w-3.5" strokeWidth={1.75} />
             Compartir
@@ -276,7 +276,7 @@ export function ScheduleBoard({
           <button
             type="button"
             onClick={() => setDeleteDialogOpen(true)}
-            className="flex items-center gap-2 rounded-full border border-red-200 px-4 py-2 text-[13px] font-medium text-red-500 transition-colors hover:bg-red-50"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-red-200 px-4 py-2 text-[13px] font-medium text-red-500 transition-colors hover:bg-red-50 sm:w-auto sm:justify-start"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Eliminar horario
