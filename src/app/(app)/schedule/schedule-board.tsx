@@ -32,6 +32,14 @@ import { ShareScheduleDialog } from "@/app/(app)/schedule/share-schedule-dialog"
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// Below the mobile breakpoint, day columns get a fixed width close to what
+// desktop's fluid `1fr` tracks naturally render at, instead of shrinking to
+// fit the viewport — that shrinking is what made course pills overlap and
+// become illegible on phones. The grid becomes wider than the screen on
+// purpose; the container it sits in scrolls horizontally to compensate.
+const GRID_TEMPLATE_CLASS =
+  "grid-cols-[92px_repeat(5,150px)] sm:grid-cols-[110px_repeat(5,minmax(0,1fr))]";
+
 function CoursePill({ course, isOverlay }: { course: Course; isOverlay?: boolean }) {
   return (
     <span
@@ -298,8 +306,7 @@ export function ScheduleBoard({
 
         <div
           ref={gridRef}
-          className="grid gap-2 rounded-2xl bg-nova-white p-2"
-          style={{ gridTemplateColumns: "110px repeat(5, minmax(0, 1fr))" }}
+          className={`grid gap-2 overflow-x-auto rounded-2xl bg-nova-white p-2 sm:overflow-visible ${GRID_TEMPLATE_CLASS}`}
         >
           <div />
           {WEEKDAYS.map((day) => (
@@ -325,10 +332,9 @@ export function ScheduleBoard({
               <motion.div
                 layout
                 key={`block-${row.blockIndex}`}
-                className="col-span-6 grid gap-2"
-                style={{ gridTemplateColumns: "110px repeat(5, minmax(0, 1fr))" }}
+                className={`col-span-6 grid gap-2 ${GRID_TEMPLATE_CLASS}`}
               >
-                <div className="flex items-center justify-center text-center text-xs font-medium text-nova-navy/80">
+                <div className="sticky left-0 z-10 flex items-center justify-center bg-nova-white text-center text-xs font-medium text-nova-navy/80">
                   {formatRange(row.startMinutes, row.endMinutes)}
                 </div>
                 {WEEKDAYS.map((_, dayIndex) => {

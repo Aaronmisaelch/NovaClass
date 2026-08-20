@@ -137,7 +137,7 @@ export function TareasView() {
             className="overflow-hidden rounded-3xl border border-nova-navy/[0.04] bg-nova-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]"
           >
             <div
-              className="grid gap-4 border-b border-nova-navy/[0.08] bg-nova-navy/[0.025] px-4 py-4 text-[13px] font-bold uppercase tracking-wider text-nova-navy"
+              className="hidden gap-4 border-b border-nova-navy/[0.08] bg-nova-navy/[0.025] px-4 py-4 text-[13px] font-bold uppercase tracking-wider text-nova-navy sm:grid"
               style={{ gridTemplateColumns: "40px 148px minmax(140px,1fr) 40px 176px 200px" }}
             >
               <span />

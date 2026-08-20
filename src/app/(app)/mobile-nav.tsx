@@ -3,15 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { CircleUserRound } from "lucide-react";
 import { NAV_ITEMS } from "@/app/(app)/sidebar";
+
+const MOBILE_NAV_ITEMS = [
+  ...NAV_ITEMS,
+  { href: "/perfil", label: "Perfil", icon: CircleUserRound },
+];
 
 export function MobileNav() {
   const pathname = usePathname();
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 sm:hidden">
-      <div className="flex items-center gap-1 rounded-full border border-nova-navy/[0.04] bg-nova-white/70 px-1 py-1 backdrop-blur-lg shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]">
-        {NAV_ITEMS.map((item) => {
+      <div className="flex items-center gap-0.5 rounded-full border border-nova-navy/[0.04] bg-nova-white/70 px-1 py-1 backdrop-blur-lg shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]">
+        {MOBILE_NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = pathname.startsWith(item.href);
 
@@ -20,7 +26,7 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               aria-label={item.label}
-              className={`relative flex items-center justify-center rounded-full px-6 py-2 transition-colors ${
+              className={`relative flex items-center justify-center rounded-full px-3.5 py-2.5 transition-colors ${
                 isActive
                   ? "text-nova-electric"
                   : "text-nova-navy/50 hover:text-nova-navy/70"

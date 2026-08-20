@@ -169,7 +169,7 @@ export function CalendarView() {
           layout
           transition={{ duration: 0.4, ease: EASE }}
           style={{ background: "linear-gradient(165deg, #FFFFFF 0%, #F1F7FE 55%, #E8F1FE 100%)" }}
-          className={`min-w-0 max-w-[860px] flex-1 rounded-3xl border border-nova-navy/[0.04] p-5 ${CARD_SHADOW}`}
+          className={`min-w-0 flex-1 rounded-3xl border border-nova-navy/[0.04] p-5 ${CARD_SHADOW}`}
         >
           <CalendarGrid
             year={viewYear}

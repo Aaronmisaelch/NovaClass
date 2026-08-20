@@ -135,11 +135,11 @@ export function DayPanel({
       />
       <motion.div
         ref={panelRef}
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100%" }}
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 36 }}
-        className="fixed inset-y-0 right-0 z-50 w-full overflow-hidden bg-nova-white shadow-[0_20px_60px_-30px_rgba(4,14,60,0.35)] sm:w-[420px] sm:border-l sm:border-nova-navy/5"
+        className="fixed inset-x-0 bottom-0 z-50 h-[68vh] w-full overflow-hidden rounded-t-3xl bg-nova-white shadow-[0_-20px_60px_-30px_rgba(4,14,60,0.35)]"
       >
         <PanelContent dateKey={dateKey} events={events} onClose={onClose} />
       </motion.div>

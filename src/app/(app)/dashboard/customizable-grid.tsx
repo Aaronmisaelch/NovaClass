@@ -66,7 +66,7 @@ export function CustomizableGrid({
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <SortableContext items={widgets.map((widget) => widget.id)} strategy={rectSortingStrategy}>
-        <div className="grid grid-cols-4 gap-4" style={{ gridAutoFlow: "dense" }}>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4" style={{ gridAutoFlow: "dense" }}>
           <AnimatePresence>
             {widgets.map((widget) => (
               <SortableWidget

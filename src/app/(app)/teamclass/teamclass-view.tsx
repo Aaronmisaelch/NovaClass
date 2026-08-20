@@ -123,19 +123,19 @@ export function TeamClassView() {
 
   return (
     <main className="relative p-10">
-      <div className="mb-10 flex items-end justify-between">
+      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <h1 className="flex items-center gap-3 text-[29px] font-semibold tracking-tight text-nova-navy">
           <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-nova-electric to-nova-sky" />
           TeamClass
         </h1>
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2.5">
           <motion.button
             type="button"
             onClick={() => setModal("join")}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2, ease: EASE }}
-            className="flex items-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03]"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-nova-navy/10 px-4 py-2 text-[13px] font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.03] sm:w-auto sm:justify-start"
           >
             <KeyRound className="h-3.5 w-3.5" strokeWidth={1.75} />
             Unirme a grupo
@@ -146,7 +146,7 @@ export function TeamClassView() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2, ease: EASE }}
-            className="flex items-center gap-2 rounded-full bg-gradient-to-r from-nova-electric to-nova-intermediate px-5 py-2.5 text-[13px] font-semibold text-nova-white shadow-[0_6px_18px_-6px_rgba(10,109,253,0.5)] transition-shadow hover:shadow-[0_10px_24px_-6px_rgba(10,109,253,0.6)]"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-nova-electric to-nova-intermediate px-5 py-2.5 text-[13px] font-semibold text-nova-white shadow-[0_6px_18px_-6px_rgba(10,109,253,0.5)] transition-shadow hover:shadow-[0_10px_24px_-6px_rgba(10,109,253,0.6)] sm:w-auto sm:justify-start"
           >
             <FolderPlus className="h-3.5 w-3.5" strokeWidth={2} />
             Crear grupo
