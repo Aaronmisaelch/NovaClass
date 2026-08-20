@@ -97,26 +97,35 @@ function DisplayCard({
       transition={{ y: LIFT_TRANSITION, zIndex: { duration: 0 } }}
       style={{ marginTop, height: cardHeight, borderColor: hexToRgba(accent, 0.35) }}
       className={cn(
-        "relative flex w-full shrink-0 select-none flex-col overflow-hidden rounded-xl bg-nova-white/95 shadow-[0_10px_26px_-16px_rgba(4,14,60,0.4)] backdrop-blur-sm after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-24 after:bg-gradient-to-l after:from-nova-white after:to-transparent after:content-[''] [&>*]:flex [&>*]:items-center [&>*]:gap-2",
+        "relative flex w-full shrink-0 select-none flex-col overflow-hidden rounded-xl bg-nova-white/95 shadow-[0_10px_26px_-16px_rgba(4,14,60,0.4)] backdrop-blur-sm after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-24 after:bg-gradient-to-l after:from-nova-white after:to-transparent after:content-[''] [&>*]:flex [&>*]:items-center [&>*]:gap-1 sm:[&>*]:gap-2",
         // Compact cards anchor their icon+title as close to the top edge as
         // possible (small pt, border-1) — that top strip is the only part
         // of the card guaranteed to still be showing once the next card in
         // the stack covers the rest, so the padding that matters for
-        // legibility is above the content, not below it.
-        compact ? "border pb-2 pl-3 pr-3 pt-1" : "border-2 px-4 py-3",
+        // legibility is above the content, not below it. Side padding is
+        // additionally shrunk below the mobile breakpoint (reverting to the
+        // original values at sm:) since that's the narrower context where a
+        // long course name needs every spare px to avoid truncating.
+        compact ? "border pb-2 pl-1.5 pr-1.5 pt-1 sm:pl-3 sm:pr-3" : "border-2 px-4 py-3",
         description || date ? "justify-between" : "justify-start",
         className
       )}
     >
       <div>
         <span
-          className={cn("relative inline-block shrink-0 rounded-full", compact ? "p-0.5" : "p-1.5")}
+          className={cn(
+            "relative inline-block shrink-0 rounded-full",
+            compact ? "p-0 sm:p-0.5" : "p-1.5"
+          )}
           style={{ backgroundColor: hexToRgba(accent, 0.16), color: accent }}
         >
           {icon}
         </span>
         <p
-          className={cn("truncate font-semibold", compact ? "text-[12.5px]" : "text-[14px]")}
+          className={cn(
+            "truncate font-semibold",
+            compact ? "text-[10px] sm:text-[12.5px]" : "text-[14px]"
+          )}
           style={{ color: accent }}
         >
           {title}

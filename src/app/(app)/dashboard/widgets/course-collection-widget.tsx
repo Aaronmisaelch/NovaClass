@@ -136,17 +136,24 @@ export function CourseCollectionWidget({
           </div>
         </div>
       ) : (
-        <div ref={stackRef} className="min-h-0 flex-1 overflow-y-auto">
+        <div ref={stackRef} className="relative min-h-0 flex-1 overflow-y-auto">
           <DisplayCards
             frontPosition="bottom"
             compact
             cardHeight={cardHeight}
             peek={peek}
             cards={courses.map((course) => ({
-              icon: <BookOpen className="size-3" />,
+              icon: <BookOpen className="size-2.5 sm:size-3" />,
               title: course.name,
               accent: getCourseColor(course.color).hex,
             }))}
+          />
+          {/* Signals there's more to scroll to instead of hard-clipping the
+              last card mid-way through — mobile only, since desktop's wider
+              stack already fits without needing this cue. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-nova-white to-transparent sm:hidden"
           />
         </div>
       )}

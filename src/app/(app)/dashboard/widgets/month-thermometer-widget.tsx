@@ -17,6 +17,7 @@ export function MonthThermometerWidget({
   return (
     <WidgetCard
       dragHandleProps={dragHandleProps}
+      noPadding
       style={{
         background: "linear-gradient(160deg, #FFFFFF 0%, #EAF3FE 55%, #DCEBFE 100%)",
       }}
@@ -41,9 +42,16 @@ export function MonthThermometerWidget({
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <p className="shrink-0 text-[13px] font-medium text-nova-navy/40">Termómetro del mes</p>
+      {/* WidgetCard's own p-5 is flat on every side regardless of card
+          size; on mobile's much smaller square card that padding alone was
+          eating enough height to push the progress bar (the last, shortest
+          element below) past the card's visible bounds. Trading it for a
+          smaller mobile-only value reclaims exactly the headroom that was
+          missing, without touching WidgetCard for every other widget. */}
+      <div className="flex h-full flex-col p-3 sm:p-5">
+        <p className="shrink-0 text-[13px] font-medium text-nova-navy/40">Termómetro del mes</p>
 
-      <div className="flex min-h-0 flex-1 items-stretch gap-3 pt-1 sm:gap-[30px]">
+        <div className="flex min-h-0 flex-1 items-stretch gap-3 pt-1 sm:gap-[30px]">
         <div className="relative flex h-full w-6 shrink-0 flex-col items-center sm:w-[38px]">
           <div className="relative w-[18px] flex-1 overflow-hidden rounded-full bg-nova-navy/[0.06] shadow-[inset_0_2px_6px_rgba(4,14,60,0.08)] sm:w-[30px]">
             <div className="pointer-events-none absolute inset-y-2 inset-x-0 z-10 flex flex-col justify-between sm:inset-y-[15px]">
@@ -106,6 +114,7 @@ export function MonthThermometerWidget({
               className="h-full rounded-full bg-gradient-to-r from-nova-electric to-nova-sky"
             />
           </div>
+        </div>
         </div>
       </div>
     </WidgetCard>

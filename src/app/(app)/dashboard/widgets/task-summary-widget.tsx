@@ -17,7 +17,7 @@ function TaskListItem({ task }: { task: PrioritizedTask }) {
   const daysRemaining = getDaysRemaining(task.dueDate);
 
   return (
-    <div className="flex items-center gap-1.5 rounded-lg border border-nova-navy/[0.06] bg-nova-white/95 px-2 py-1.5 shadow-[0_6px_16px_-12px_rgba(4,14,60,0.35)] sm:gap-2.5 sm:rounded-xl sm:px-3 sm:py-2.5">
+    <div className="flex items-start gap-1.5 rounded-lg border border-nova-navy/[0.06] bg-nova-white/95 px-2 py-1.5 shadow-[0_6px_16px_-12px_rgba(4,14,60,0.35)] sm:items-center sm:gap-2.5 sm:rounded-xl sm:px-3 sm:py-2.5">
       <span
         className="relative inline-flex size-6 shrink-0 items-center justify-center rounded-full sm:size-8"
         style={{ backgroundColor: hexToRgba(accent, 0.16), color: accent }}
@@ -25,7 +25,9 @@ function TaskListItem({ task }: { task: PrioritizedTask }) {
         <CalendarDays className="size-3 sm:size-4" />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[10px] font-semibold text-nova-navy sm:text-[11px]">{task.title}</p>
+        <p className="break-words text-[10px] font-semibold text-nova-navy sm:truncate sm:text-[11px]">
+          {task.title}
+        </p>
         <p className="truncate text-[8.5px] text-nova-navy/50 sm:text-[9.5px]">{task.courseName}</p>
       </div>
       <span
@@ -94,19 +96,28 @@ export function TaskSummaryWidget({
             </div>
           </div>
         ) : (
-          <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden">
-            {/* AnimatedList reveals children in the order given, and each
-                newly-revealed one is placed above the ones already showing —
-                so the *last* child to reveal ends up on top. `prioritized`
-                is sorted most-urgent-first, and we want the most urgent
-                task at the top, so it must be the last one revealed: pass
-                the reversed order (least urgent / no date first, most
-                urgent last) here. */}
-            <AnimatedList delay={100}>
-              {[...prioritized].reverse().map((task) => (
-                <TaskListItem key={task.taskId} task={task} />
-              ))}
-            </AnimatedList>
+          <div className="relative min-h-0 flex-1">
+            <div ref={scrollRef} className="h-full overflow-y-auto overflow-x-hidden">
+              {/* AnimatedList reveals children in the order given, and each
+                  newly-revealed one is placed above the ones already showing —
+                  so the *last* child to reveal ends up on top. `prioritized`
+                  is sorted most-urgent-first, and we want the most urgent
+                  task at the top, so it must be the last one revealed: pass
+                  the reversed order (least urgent / no date first, most
+                  urgent last) here. */}
+              <AnimatedList delay={100}>
+                {[...prioritized].reverse().map((task) => (
+                  <TaskListItem key={task.taskId} task={task} />
+                ))}
+              </AnimatedList>
+            </div>
+            {/* Signals there's more to scroll to on the shorter mobile card
+                instead of leaving the cut-off abrupt — desktop's taller card
+                already fits enough of the list without needing this cue. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-5 bg-gradient-to-t from-nova-white to-transparent sm:hidden"
+            />
           </div>
         )}
       </div>
