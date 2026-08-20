@@ -110,8 +110,8 @@ export function CalendarView() {
   }
 
   return (
-    <main className="relative p-10">
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <main className="relative flex h-full flex-col p-4 sm:block sm:h-auto sm:p-10">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-4 sm:mb-8">
         <h1 className="flex items-center gap-2.5 text-[29px] font-semibold text-nova-navy">
           <span className="h-2 w-2 rounded-full bg-gradient-to-br from-nova-electric to-nova-sky" />
           Calendario
@@ -164,12 +164,12 @@ export function CalendarView() {
         </div>
       </div>
 
-      <div className="flex items-start gap-6">
+      <div className="flex flex-1 items-stretch gap-6 sm:flex-none sm:items-start">
         <motion.div
           layout
           transition={{ duration: 0.4, ease: EASE }}
           style={{ background: "linear-gradient(165deg, #FFFFFF 0%, #F1F7FE 55%, #E8F1FE 100%)" }}
-          className={`min-w-0 flex-1 rounded-3xl border border-nova-navy/[0.04] p-5 ${CARD_SHADOW}`}
+          className={`flex min-w-0 flex-1 flex-col p-3 sm:block sm:p-5 rounded-3xl border border-nova-navy/[0.04] ${CARD_SHADOW}`}
         >
           <CalendarGrid
             year={viewYear}

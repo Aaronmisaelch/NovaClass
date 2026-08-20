@@ -43,12 +43,12 @@ export function MonthThermometerWidget({
 
       <p className="shrink-0 text-[13px] font-medium text-nova-navy/40">Termómetro del mes</p>
 
-      <div className="flex min-h-0 flex-1 items-stretch gap-[30px] pt-1">
-        <div className="relative flex h-full w-[38px] shrink-0 flex-col items-center">
-          <div className="relative w-[30px] flex-1 overflow-hidden rounded-full bg-nova-navy/[0.06] shadow-[inset_0_2px_6px_rgba(4,14,60,0.08)]">
-            <div className="pointer-events-none absolute inset-y-[15px] inset-x-0 z-10 flex flex-col justify-between">
+      <div className="flex min-h-0 flex-1 items-stretch gap-3 pt-1 sm:gap-[30px]">
+        <div className="relative flex h-full w-6 shrink-0 flex-col items-center sm:w-[38px]">
+          <div className="relative w-[18px] flex-1 overflow-hidden rounded-full bg-nova-navy/[0.06] shadow-[inset_0_2px_6px_rgba(4,14,60,0.08)] sm:w-[30px]">
+            <div className="pointer-events-none absolute inset-y-2 inset-x-0 z-10 flex flex-col justify-between sm:inset-y-[15px]">
               {Array.from({ length: 7 }).map((_, index) => (
-                <span key={index} className="ml-1.5 h-px w-[9px] bg-nova-navy/15" />
+                <span key={index} className="ml-1 h-px w-[5px] bg-nova-navy/15 sm:ml-1.5 sm:w-[9px]" />
               ))}
             </div>
 
@@ -74,13 +74,13 @@ export function MonthThermometerWidget({
           </div>
 
           <div
-            className="relative -mt-2 flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border-2 border-nova-white"
+            className="relative -mt-1 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-nova-white sm:-mt-2 sm:h-[34px] sm:w-[34px]"
             style={{
               background: "radial-gradient(circle at 35% 30%, #57B9FD 0%, #0A6DFD 60%, #075BD6 100%)",
               boxShadow: "0 4px 14px -2px rgba(10,109,253,0.45)",
             }}
           >
-            <span className="absolute left-[9px] top-[8px] h-2 w-2 rounded-full bg-white/45" />
+            <span className="absolute left-[5px] top-[4px] h-1.5 w-1.5 rounded-full bg-white/45 sm:left-[9px] sm:top-[8px] sm:h-2 sm:w-2" />
           </div>
         </div>
 
@@ -88,17 +88,17 @@ export function MonthThermometerWidget({
           <AnimatedNumber
             value={percent}
             suffix="%"
-            className="text-[clamp(32px,44cqw,91px)] font-black leading-none tracking-tight text-nova-navy"
+            className="text-[clamp(20px,40cqw,91px)] font-black leading-none tracking-tight text-nova-navy"
           />
-          <p className="mt-2 text-[11px] font-medium text-nova-navy/40">Avance del mes</p>
-          <div className="mt-3 flex items-center gap-2.5">
-            <span className="rounded-full bg-nova-navy/[0.05] px-3.5 py-1 text-[11px] font-semibold text-nova-navy/70">
+          <p className="mt-1 text-[9px] font-medium text-nova-navy/40 sm:mt-2 sm:text-[11px]">Avance del mes</p>
+          <div className="mt-1.5 flex items-center gap-1.5 sm:mt-3 sm:gap-2.5">
+            <span className="rounded-full bg-nova-navy/[0.05] px-2 py-0.5 text-[9px] font-semibold text-nova-navy/70 sm:px-3.5 sm:py-1 sm:text-[11px]">
               Día {day}
             </span>
-            <span className="text-[11px] text-nova-navy/40">{daysRemaining} restantes</span>
+            <span className="text-[9px] text-nova-navy/40 sm:text-[11px]">{daysRemaining} restantes</span>
           </div>
 
-          <div className="mt-4 h-1.5 w-full max-w-[209px] overflow-hidden rounded-full bg-nova-navy/[0.06]">
+          <div className="mt-2 h-1.5 w-full max-w-[209px] overflow-hidden rounded-full bg-nova-navy/[0.06] sm:mt-4">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${percent}%` }}

@@ -116,7 +116,7 @@ export function TaskRow({
         <DueDatePicker dueDate={task.dueDate} onChange={onChangeDueDate} />
       </div>
 
-      {/* Mobile: stacked card — checkbox/course/title up top, status/due date below. */}
+      {/* Mobile: stacked card — checkbox/course/due date up top, task name + status below. */}
       <div className="flex flex-col gap-2 sm:hidden">
         <div className="flex items-center gap-2.5">
           <motion.button
@@ -150,18 +150,11 @@ export function TaskRow({
             <CoursePicker courses={courses} course={course} onChange={onChangeCourse} />
           </div>
 
-          <input
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            onBlur={commitTitle}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") event.currentTarget.blur();
-            }}
-            placeholder="Nombre de la tarea"
-            className={`min-w-0 flex-1 rounded-lg bg-transparent px-2.5 py-1.5 text-[15px] font-medium text-nova-navy outline-none transition-colors placeholder:font-normal placeholder:text-nova-navy/30 focus:bg-nova-electric/[0.04] ${
-              task.completed ? "line-through" : ""
-            }`}
-          />
+          <div className="inline-block shrink-0">
+            <DueDatePicker dueDate={task.dueDate} onChange={onChangeDueDate} />
+          </div>
+
+          <span className="flex-1" />
 
           <motion.button
             type="button"
@@ -176,12 +169,21 @@ export function TaskRow({
           </motion.button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 pl-[32px]">
-          <div className="inline-block">
+        <div className="flex items-center gap-2 pl-[32px]">
+          <input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            onBlur={commitTitle}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.currentTarget.blur();
+            }}
+            placeholder="Nombre de la tarea"
+            className={`min-w-0 flex-1 rounded-lg bg-transparent px-2.5 py-1.5 text-[15px] font-medium text-nova-navy outline-none transition-colors placeholder:font-normal placeholder:text-nova-navy/30 focus:bg-nova-electric/[0.04] ${
+              task.completed ? "line-through" : ""
+            }`}
+          />
+          <div className="inline-block shrink-0">
             <StatusPicker status={task.status} onChange={onChangeStatus} />
-          </div>
-          <div className="inline-block">
-            <DueDatePicker dueDate={task.dueDate} onChange={onChangeDueDate} />
           </div>
         </div>
       </div>

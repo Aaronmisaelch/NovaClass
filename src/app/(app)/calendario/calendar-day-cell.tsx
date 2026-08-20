@@ -34,7 +34,7 @@ export function CalendarDayCell({
       onClick={onSelect}
       whileHover={{ backgroundColor: "rgba(4,14,60,0.032)" }}
       transition={{ duration: 0.25, ease: EASE }}
-      className="flex aspect-square flex-col items-stretch gap-1 border-l border-t border-nova-navy/[0.05] p-2 text-left"
+      className="flex h-full flex-col items-stretch gap-1 border-l border-t border-nova-navy/[0.05] p-2 text-left sm:aspect-square sm:h-auto"
     >
       <div className="relative flex h-6 w-6 shrink-0 items-center justify-center">
         {isToday && (

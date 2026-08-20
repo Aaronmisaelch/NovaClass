@@ -17,20 +17,20 @@ function TaskListItem({ task }: { task: PrioritizedTask }) {
   const daysRemaining = getDaysRemaining(task.dueDate);
 
   return (
-    <div className="flex items-center gap-2.5 rounded-xl border border-nova-navy/[0.06] bg-nova-white/95 px-3 py-2.5 shadow-[0_6px_16px_-12px_rgba(4,14,60,0.35)]">
+    <div className="flex items-center gap-1.5 rounded-lg border border-nova-navy/[0.06] bg-nova-white/95 px-2 py-1.5 shadow-[0_6px_16px_-12px_rgba(4,14,60,0.35)] sm:gap-2.5 sm:rounded-xl sm:px-3 sm:py-2.5">
       <span
-        className="relative inline-flex size-8 shrink-0 items-center justify-center rounded-full"
+        className="relative inline-flex size-6 shrink-0 items-center justify-center rounded-full sm:size-8"
         style={{ backgroundColor: hexToRgba(accent, 0.16), color: accent }}
       >
-        <CalendarDays className="size-4" />
+        <CalendarDays className="size-3 sm:size-4" />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[11px] font-semibold text-nova-navy">{task.title}</p>
-        <p className="truncate text-[9.5px] text-nova-navy/50">{task.courseName}</p>
+        <p className="truncate text-[10px] font-semibold text-nova-navy sm:text-[11px]">{task.title}</p>
+        <p className="truncate text-[8.5px] text-nova-navy/50 sm:text-[9.5px]">{task.courseName}</p>
       </div>
       <span
         className={cn(
-          "shrink-0 rounded-full border px-1.5 py-0.5 text-[9px] font-medium leading-none",
+          "shrink-0 rounded-full border px-1 py-0.5 text-[8px] font-medium leading-none sm:px-1.5 sm:text-[9px]",
           getUrgencyClass(daysRemaining)
         )}
       >
@@ -58,8 +58,8 @@ export function TaskSummaryWidget({
     // left edge and the reclaimed width on the right goes to the card text,
     // which is what was getting clipped at laptop widths.
     <WidgetCard dragHandleProps={dragHandleProps} noPadding>
-      <div className="flex h-full min-h-0 flex-col pb-5 pl-3 pr-2 pt-5">
-        <p className="mb-3 text-[14px] font-medium text-nova-navy">Resumen de tareas</p>
+      <div className="flex h-full min-h-0 flex-col pb-3 pl-2 pr-1.5 pt-3 sm:pb-5 sm:pl-3 sm:pr-2 sm:pt-5">
+        <p className="mb-1.5 text-[12px] font-medium text-nova-navy sm:mb-3 sm:text-[14px]">Resumen de tareas</p>
 
         {prioritized.length === 0 ? (
           <div className="relative flex flex-1 flex-col items-center justify-center gap-4 overflow-hidden px-4 text-center">

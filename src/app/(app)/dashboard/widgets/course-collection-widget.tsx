@@ -56,14 +56,15 @@ function computeFitSizing(availableHeight: number, count: number) {
   const gaps = count - 1;
   const ratioCardHeight = Math.min(usableHeight / (1 + OVERLAP_RATIO * gaps), MAX_CARD_HEIGHT);
   // MIN_PEEK is a hard floor — it's the one thing standing between the
-  // icon/title and getting covered by the next card, so it always wins
-  // over the ratio-based curve. It's only capped at usableHeight / count as
-  // an absolute last resort: past that point there isn't room for all
-  // `count` cards to each show even a bare MIN_PEEK slice with zero
-  // overlap, so this keeps the solve from overflowing usableHeight (the
-  // clipping bug from before) instead of guaranteeing full legibility that
-  // the available space genuinely cannot provide.
-  const peek = Math.min(Math.max(ratioCardHeight * OVERLAP_RATIO, MIN_PEEK), usableHeight / count);
+  // icon/title and getting covered by the next card, so it always wins over
+  // the ratio-based curve, even if that means the stack's total height ends
+  // up taller than `usableHeight`. That used to be capped at
+  // usableHeight / count instead, which let peek keep shrinking past
+  // legibility on narrow/short widgets (mobile) whenever there wasn't room
+  // for every card at once — the parent now scrolls (see stackRef below)
+  // for whatever doesn't fit, rather than every card shrinking into an
+  // illegible sliver just to guarantee they're all visible without scroll.
+  const peek = Math.max(ratioCardHeight * OVERLAP_RATIO, MIN_PEEK);
   const cardHeight = Math.min(Math.max(usableHeight - peek * gaps, peek), MAX_CARD_HEIGHT);
   return { cardHeight, peek };
 }
@@ -135,7 +136,7 @@ export function CourseCollectionWidget({
           </div>
         </div>
       ) : (
-        <div ref={stackRef} className="min-h-0 flex-1 overflow-hidden">
+        <div ref={stackRef} className="min-h-0 flex-1 overflow-y-auto">
           <DisplayCards
             frontPosition="bottom"
             compact

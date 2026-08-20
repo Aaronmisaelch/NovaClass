@@ -183,43 +183,43 @@ export function BirthdayWidget({
       />
 
       <div className="relative flex flex-1 flex-col items-center justify-center">
-        <div className="h-[17px] w-[4px] rounded-full bg-nova-navy/20" />
+        <div className="h-[10px] w-[2.5px] rounded-full bg-nova-navy/20 sm:h-[17px] sm:w-[4px]" />
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 -z-10 h-[45px] w-[45px] rounded-full"
+          className="pointer-events-none absolute top-0 -z-10 h-[26px] w-[26px] rounded-full sm:h-[45px] sm:w-[45px]"
           style={{ background: "radial-gradient(circle, rgba(253,224,71,0.6) 0%, rgba(253,224,71,0) 70%)" }}
           animate={{ scale: [1, 1.3, 1], opacity: [0.55, 0.9, 0.55] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="-mt-[4px] h-[14px] w-[14px] rounded-full"
+          className="-mt-[2px] h-[8px] w-[8px] rounded-full sm:-mt-[4px] sm:h-[14px] sm:w-[14px]"
           style={{ background: "radial-gradient(circle, #FEF3C7 0%, #FDE68A 45%, #F97316 100%)" }}
           animate={{ opacity: [0.65, 1, 0.65], scale: [1, 1.22, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        <div className="z-10 mt-[6px] flex h-[82px] w-[82px] flex-col items-center justify-center rounded-full border-2 border-nova-white bg-nova-white text-center shadow-[0_4px_14px_rgba(4,14,60,0.14)]">
-          <AnimatedNumber value={daysRemaining} className="text-[31px] font-black leading-none text-nova-navy" />
-          <span className="text-[13px] font-medium uppercase tracking-wide text-nova-navy/40">días</span>
+        <div className="z-10 mt-[3px] flex h-[48px] w-[48px] flex-col items-center justify-center rounded-full border-2 border-nova-white bg-nova-white text-center shadow-[0_4px_14px_rgba(4,14,60,0.14)] sm:mt-[6px] sm:h-[82px] sm:w-[82px]">
+          <AnimatedNumber value={daysRemaining} className="text-[18px] font-black leading-none text-nova-navy sm:text-[31px]" />
+          <span className="text-[8px] font-medium uppercase tracking-wide text-nova-navy/40 sm:text-[13px]">días</span>
         </div>
 
-        <div className="-mt-2 flex flex-col items-center">
-          <div className="h-[25px] w-[82px] rounded-t-lg border border-nova-white/80" style={{ backgroundColor: pastel }} />
-          <div className="-mt-px flex gap-[5px]">
+        <div className="-mt-1 flex flex-col items-center sm:-mt-2">
+          <div className="h-[15px] w-[48px] rounded-t-lg border border-nova-white/80 sm:h-[25px] sm:w-[82px]" style={{ backgroundColor: pastel }} />
+          <div className="-mt-px flex gap-[3px] sm:gap-[5px]">
             {[0, 1, 2, 3].map((dot) => (
               <span
                 key={dot}
-                className="h-[11px] w-[11px] rounded-full border border-nova-white/80"
+                className="h-[6px] w-[6px] rounded-full border border-nova-white/80 sm:h-[11px] sm:w-[11px]"
                 style={{ backgroundColor: pastel }}
               />
             ))}
           </div>
-          <div className="h-[29px] w-[116px] border border-nova-white/80" style={{ backgroundColor: `${pastel}D9` }} />
+          <div className="h-[17px] w-[68px] border border-nova-white/80 sm:h-[29px] sm:w-[116px]" style={{ backgroundColor: `${pastel}D9` }} />
           <div
-            className="relative flex h-[50px] w-[166px] items-center justify-center rounded-b-2xl border border-nova-white/80"
+            className="relative flex h-[29px] w-[97px] items-center justify-center rounded-b-2xl border border-nova-white/80 sm:h-[50px] sm:w-[166px]"
             style={{ backgroundColor: `${pastel}B3` }}
           >
-            <span className="max-w-[92%] truncate rounded-full bg-nova-white/90 px-3 py-1 text-[13px] font-semibold text-nova-navy shadow-sm">
+            <span className="max-w-[92%] truncate rounded-full bg-nova-white/90 px-2 py-0.5 text-[9px] font-semibold text-nova-navy shadow-sm sm:px-3 sm:py-1 sm:text-[13px]">
               {config.name}
             </span>
           </div>

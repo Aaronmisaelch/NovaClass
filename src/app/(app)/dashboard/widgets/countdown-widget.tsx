@@ -123,23 +123,23 @@ export function CountdownWidget({
         <Pencil className="h-3.5 w-3.5" />
       </button>
 
-      <div className="flex h-full flex-col pt-4">
-        <div className="flex items-center gap-2 px-5">
+      <div className="flex h-full flex-col pt-2 sm:pt-4">
+        <div className="flex items-center gap-2 px-3 sm:px-5">
           <motion.span
             className="h-1.5 w-1.5 shrink-0 rounded-full"
             style={{ backgroundColor: dotColor }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <p className="truncate text-[14px] font-semibold uppercase tracking-wide text-nova-white/70">
+          <p className="truncate text-[11px] font-semibold uppercase tracking-wide text-nova-white/70 sm:text-[14px]">
             {config.title}
           </p>
         </div>
-        <p className="mt-0.5 pl-[14px] text-[13px] font-medium text-nova-white/45">
+        <p className="mt-0.5 pl-[10px] text-[10px] font-medium text-nova-white/45 sm:pl-[14px] sm:text-[13px]">
           {DATE_LABEL_FORMAT.format(target)}
         </p>
 
-        <div className="flex flex-1 flex-col items-center justify-center gap-1 px-5 text-center">
+        <div className="flex flex-1 flex-col items-center justify-center gap-0.5 px-3 text-center sm:gap-1 sm:px-5">
           {/* Minimalist bomb — the widget's visual protagonist. A rounded
               body with the days-remaining number set inside it, a short
               fuse arcing up from its cap, and a flickering spark at the
@@ -148,7 +148,7 @@ export function CountdownWidget({
               instead of a realistic bomb's black/red. The fuse's burn
               point shortens as `progress` climbs, so it doubles as a
               second read of the same countdown the bar below shows. */}
-          <div className="relative" style={{ width: 136, height: 136 }}>
+          <div className="relative h-[78px] w-[78px] sm:h-[136px] sm:w-[136px]">
             <svg
               aria-hidden="true"
               viewBox="0 0 136 136"
@@ -194,32 +194,32 @@ export function CountdownWidget({
               />
             </svg>
 
-            <div className="absolute left-1/2 top-[24px] h-3 w-[18px] -translate-x-1/2 rounded-t-md bg-nova-navy/40" />
+            <div className="absolute left-1/2 top-[14px] h-[7px] w-[10px] -translate-x-1/2 rounded-t-md bg-nova-navy/40 sm:top-[24px] sm:h-3 sm:w-[18px]" />
 
             <div
-              className="absolute bottom-0 left-1/2 h-[104px] w-[104px] -translate-x-1/2 rounded-full border border-white/20"
+              className="absolute bottom-0 left-1/2 h-[60px] w-[60px] -translate-x-1/2 rounded-full border border-white/20 sm:h-[104px] sm:w-[104px]"
               style={{
                 background: "radial-gradient(circle at 35% 30%, #2F94FD 0%, #0A6DFD 55%, #040E3C 100%)",
                 boxShadow: "0 14px 30px -10px rgba(4,14,60,0.55), inset 0 2px 10px rgba(255,255,255,0.15)",
               }}
             >
-              <span className="pointer-events-none absolute left-[18px] top-[16px] h-6 w-9 -rotate-12 rounded-full bg-white/25 blur-[2px]" />
+              <span className="pointer-events-none absolute left-[10px] top-[9px] h-[14px] w-[21px] -rotate-12 rounded-full bg-white/25 blur-[2px] sm:left-[18px] sm:top-[16px] sm:h-6 sm:w-9" />
               <div className="flex h-full w-full flex-col items-center justify-center">
                 {isWord ? (
-                  <span className="text-2xl font-black leading-none text-nova-white">{heroText}</span>
+                  <span className="text-sm font-black leading-none text-nova-white sm:text-2xl">{heroText}</span>
                 ) : (
                   <AnimatedNumber
                     value={daysRemaining}
-                    className="text-4xl font-black leading-none tracking-tight text-nova-white"
+                    className="text-xl font-black leading-none tracking-tight text-nova-white sm:text-4xl"
                   />
                 )}
               </div>
             </div>
           </div>
-          <p className="mt-1 text-[13px] font-medium text-nova-white/70">{subLabel}</p>
+          <p className="mt-0.5 text-[10px] font-medium text-nova-white/70 sm:mt-1 sm:text-[13px]">{subLabel}</p>
         </div>
 
-        <div className="px-5 pb-4">
+        <div className="px-3 pb-2 sm:px-5 sm:pb-4">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-nova-white/20">
             <motion.div
               initial={{ width: 0 }}

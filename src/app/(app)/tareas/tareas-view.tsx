@@ -105,13 +105,13 @@ export function TareasView() {
 
   return (
     <main className="relative p-10">
-      <div className="mb-10 flex items-end justify-between">
-        <h1 className="flex items-center gap-3 text-[29px] font-semibold tracking-tight text-nova-navy">
+      <div className="mb-10 flex items-end justify-between gap-2">
+        <h1 className="flex shrink-0 items-center gap-3 text-[29px] font-semibold tracking-tight text-nova-navy">
           <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-nova-electric to-nova-sky" />
           Mis Tareas
         </h1>
-        <div className="flex items-center gap-2.5">
-          <span className="text-sm font-medium text-nova-navy/35">Ordenar por</span>
+        <div className="flex shrink-0 items-center gap-2.5">
+          <span className="hidden text-sm font-medium text-nova-navy/35 sm:inline">Ordenar por</span>
           <SortControl sort={sort} onChange={setSort} />
         </div>
       </div>

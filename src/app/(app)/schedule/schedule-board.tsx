@@ -38,13 +38,13 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 // become illegible on phones. The grid becomes wider than the screen on
 // purpose; the container it sits in scrolls horizontally to compensate.
 const GRID_TEMPLATE_CLASS =
-  "grid-cols-[92px_repeat(5,150px)] sm:grid-cols-[110px_repeat(5,minmax(0,1fr))]";
+  "grid-cols-[70px_repeat(5,116px)] sm:grid-cols-[110px_repeat(5,minmax(0,1fr))]";
 
 function CoursePill({ course, isOverlay }: { course: Course; isOverlay?: boolean }) {
   return (
     <span
       style={getCourseStyle(course.color)}
-      className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium ${
+      className={`flex items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-sm ${
         isOverlay ? "shadow-lg" : ""
       }`}
     >
@@ -77,7 +77,7 @@ function DraggableCourse({
       {...listeners}
       {...attributes}
       style={getCourseStyle(course.color)}
-      className="flex cursor-grab items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium active:cursor-grabbing"
+      className="flex cursor-grab items-center gap-1 rounded-full border px-2 py-1 text-xs font-medium active:cursor-grabbing sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-sm"
     >
       {course.name}
       <button
@@ -86,7 +86,7 @@ function DraggableCourse({
         onClick={onEdit}
         className="opacity-50 hover:opacity-100"
       >
-        <Settings2 className="h-3 w-3" />
+        <Settings2 className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
       </button>
     </motion.div>
   );
@@ -111,7 +111,7 @@ function BlockCell({
   return (
     <div
       ref={setNodeRef}
-      className={`min-h-16 rounded-2xl transition-colors ${
+      className={`min-h-12 rounded-2xl transition-colors sm:min-h-16 ${
         course
           ? ""
           : isOver
@@ -129,9 +129,9 @@ function BlockCell({
             exit={{ opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.25, ease: EASE }}
             style={getCourseStyle(course.color)}
-            className="group relative flex h-full min-h-16 w-full flex-col items-center justify-center gap-1 rounded-2xl border px-2 py-2 text-center"
+            className="group relative flex h-full min-h-12 w-full flex-col items-center justify-center gap-1 rounded-2xl border px-1.5 py-1.5 text-center sm:min-h-16 sm:px-2 sm:py-2"
           >
-            <span className="line-clamp-3 break-words text-[16.5px] font-bold leading-tight">
+            <span className="line-clamp-3 break-words text-[12px] font-bold leading-tight sm:text-[16.5px]">
               {course.name}
             </span>
             <button
@@ -145,7 +145,7 @@ function BlockCell({
         ) : !isOver ? (
           <div
             aria-hidden="true"
-            className="pointer-events-none flex h-full min-h-16 w-full items-center justify-center"
+            className="pointer-events-none flex h-full min-h-12 w-full items-center justify-center sm:min-h-16"
           >
             <Plus className="h-3.5 w-3.5 text-nova-navy/10" strokeWidth={1.75} />
           </div>
@@ -285,7 +285,7 @@ export function ScheduleBoard({
       </div>
 
       <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <div className="mb-8 flex flex-wrap items-center gap-2">
+        <div className="mb-4 flex flex-wrap items-center gap-1.5 sm:mb-8 sm:gap-2">
           <AnimatePresence>
             {courses.map((course) => (
               <DraggableCourse
@@ -298,21 +298,21 @@ export function ScheduleBoard({
           <button
             type="button"
             onClick={() => setEditingCourse("new")}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-nova-navy/5 text-nova-navy transition-colors hover:bg-nova-navy/10"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-nova-navy/5 text-nova-navy transition-colors hover:bg-nova-navy/10 sm:h-8 sm:w-8"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
           </button>
         </div>
 
         <div
           ref={gridRef}
-          className={`grid gap-2 overflow-x-auto rounded-2xl bg-nova-white p-2 sm:overflow-visible ${GRID_TEMPLATE_CLASS}`}
+          className={`grid gap-1.5 overflow-x-auto rounded-2xl bg-nova-white p-1.5 sm:gap-2 sm:overflow-visible sm:p-2 ${GRID_TEMPLATE_CLASS}`}
         >
           <div />
           {WEEKDAYS.map((day) => (
             <div
               key={day}
-              className="px-1 pb-2 text-center text-lg font-bold uppercase tracking-wide text-nova-navy/70"
+              className="px-0.5 pb-1 text-center text-sm font-bold uppercase tracking-wide text-nova-navy/70 sm:px-1 sm:pb-2 sm:text-lg"
             >
               {day}
             </div>
@@ -322,7 +322,7 @@ export function ScheduleBoard({
             row.type === "recreo" ? (
               <div
                 key={`recreo-${row.recreoId}`}
-                className="col-span-6 my-1 flex items-center gap-3 rounded-xl bg-nova-navy/[0.03] px-3 py-2 text-xs font-medium text-nova-navy/80"
+                className="col-span-6 my-1 flex items-center gap-2 rounded-xl bg-nova-navy/[0.03] px-2 py-1.5 text-[10px] font-medium text-nova-navy/80 sm:gap-3 sm:px-3 sm:py-2 sm:text-xs"
               >
                 <span>Recreo</span>
                 <span className="h-px flex-1 bg-nova-navy/10" />
@@ -332,9 +332,9 @@ export function ScheduleBoard({
               <motion.div
                 layout
                 key={`block-${row.blockIndex}`}
-                className={`col-span-6 grid gap-2 ${GRID_TEMPLATE_CLASS}`}
+                className={`col-span-6 grid gap-1.5 sm:gap-2 ${GRID_TEMPLATE_CLASS}`}
               >
-                <div className="sticky left-0 z-10 flex items-center justify-center bg-nova-white text-center text-xs font-medium text-nova-navy/80">
+                <div className="sticky left-0 z-10 flex items-center justify-center bg-nova-white text-center text-[10px] font-medium text-nova-navy/80 sm:text-xs">
                   {formatRange(row.startMinutes, row.endMinutes)}
                 </div>
                 {WEEKDAYS.map((_, dayIndex) => {

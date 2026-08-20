@@ -27,8 +27,8 @@ export function CalendarGrid({
   const today = toDateKey(new Date());
 
   return (
-    <div className="relative overflow-hidden">
-      <div className="mb-2 grid grid-cols-7">
+    <div className="relative flex h-full flex-col overflow-hidden sm:block">
+      <div className="mb-2 grid shrink-0 grid-cols-7">
         {WEEKDAY_LABELS.map((label) => (
           <span
             key={label}
@@ -42,7 +42,7 @@ export function CalendarGrid({
       {/* Cells carry their own top/left hairline; this wrapper closes the
           frame with a matching bottom/right edge so the grid reads as one
           continuous surface instead of 42 separately-bordered cells. */}
-      <div className="overflow-hidden rounded-2xl border-b border-r border-nova-navy/[0.05]">
+      <div className="flex-1 overflow-hidden rounded-2xl border-b border-r border-nova-navy/[0.05] sm:flex-none">
         <AnimatePresence mode="wait" initial={false} custom={direction}>
           <motion.div
             key={`${year}-${month}`}
@@ -51,7 +51,7 @@ export function CalendarGrid({
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: direction >= 0 ? -28 : 28, opacity: 0 }}
             transition={{ duration: 0.32, ease: EASE }}
-            className="grid grid-cols-7"
+            className="grid h-full grid-cols-7 grid-rows-6 sm:h-auto sm:grid-rows-none"
           >
             {dates.map((date) => {
               const dateKey = toDateKey(date);

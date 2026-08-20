@@ -31,10 +31,10 @@ export function SortControl({
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.05]"
+        className="flex items-center gap-1.5 rounded-full px-2 py-1.5 text-sm font-medium text-nova-navy/70 transition-colors hover:bg-nova-navy/[0.05] sm:px-3"
       >
         <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={1.75} />
-        {current.label}
+        <span className="hidden sm:inline">{current.label}</span>
       </button>
 
       <AnimatePresence>
