@@ -1,5 +1,5 @@
 import { getSessionUser } from "@/lib/auth/session";
-import { getUserProfile, updateProfileDetails } from "@/lib/users/profile";
+import { getUserProfile, invalidateUserProfileCache, updateProfileDetails } from "@/lib/users/profile";
 import { isValidBirthDate } from "@/lib/dashboard/birthday";
 import type { EducationLevel } from "@/lib/users/types";
 
@@ -57,5 +57,6 @@ export async function POST(request: Request) {
   }
 
   await updateProfileDetails(sessionUser.uid, patch);
+  invalidateUserProfileCache(sessionUser.uid);
   return Response.json({ ok: true });
 }

@@ -1,5 +1,5 @@
 import { getSessionUser } from "@/lib/auth/session";
-import { updateOnboardingDetails } from "@/lib/users/profile";
+import { invalidateUserProfileCache, updateOnboardingDetails } from "@/lib/users/profile";
 import { isValidBirthDate } from "@/lib/dashboard/birthday";
 
 export async function POST(request: Request) {
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
     educationLevel,
     grade,
   });
+  invalidateUserProfileCache(sessionUser.uid);
 
   return Response.json({ ok: true });
 }

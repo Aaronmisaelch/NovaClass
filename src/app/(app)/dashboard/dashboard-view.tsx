@@ -31,6 +31,7 @@ import { FixedWidgetsRow } from "@/app/(app)/dashboard/fixed-widgets-row";
 import { CustomizableGrid } from "@/app/(app)/dashboard/customizable-grid";
 import { AddWidgetMenu } from "@/app/(app)/dashboard/add-widget-menu";
 import { getCachedView, setCachedView } from "@/lib/cache/view-cache";
+import { SkeletonBlock } from "@/app/(app)/skeleton-block";
 
 interface DashboardSnapshot {
   tasks: Task[];
@@ -114,7 +115,30 @@ export function DashboardView() {
   );
 
   if (!user || widgets === null) {
-    return <div className="p-10 text-sm text-nova-navy/40">Cargando…</div>;
+    const CARD_SHADOW =
+      "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]";
+    return (
+      <main className="relative p-10">
+        <SkeletonBlock className="mb-6 h-8 w-40" />
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <SkeletonBlock key={index} className={`h-32 rounded-3xl ${CARD_SHADOW}`} />
+          ))}
+        </div>
+
+        <div className="mb-4 mt-10 flex items-center justify-between">
+          <SkeletonBlock className="h-4 w-24" />
+          <SkeletonBlock className="h-7 w-7 rounded-full" />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <SkeletonBlock key={index} className={`aspect-square rounded-3xl ${CARD_SHADOW}`} />
+          ))}
+        </div>
+      </main>
+    );
   }
 
   async function handleFixedReorder(order: FixedWidgetId[]) {

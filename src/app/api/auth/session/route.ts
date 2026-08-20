@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { getAdminAuth } from "@/lib/firebase/admin";
-import { ensureUserProfile } from "@/lib/users/profile";
+import { ensureUserProfile, invalidateUserProfileCache } from "@/lib/users/profile";
 import { SESSION_COOKIE_NAME } from "@/lib/auth/constants";
 
 const SESSION_MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
@@ -24,6 +24,7 @@ export async function POST(request: Request) {
     photoURL: (decoded.picture as string | undefined) ?? null,
     name: (decoded.name as string | undefined) ?? "",
   });
+  invalidateUserProfileCache(decoded.uid);
 
   const sessionCookie = await getAdminAuth().createSessionCookie(idToken, {
     expiresIn: SESSION_MAX_AGE_MS,

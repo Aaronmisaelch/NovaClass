@@ -22,6 +22,7 @@ import { TaskRow } from "@/app/(app)/tareas/task-row";
 import { SortControl } from "@/app/(app)/tareas/sort-control";
 import { NoTasksEmptyState } from "@/app/(app)/tareas/no-tasks-empty-state";
 import { getCachedView, setCachedView } from "@/lib/cache/view-cache";
+import { SkeletonBlock } from "@/app/(app)/skeleton-block";
 
 interface TareasSnapshot {
   tasks: Task[];
@@ -100,7 +101,29 @@ export function TareasView() {
   }
 
   if (!user || tasks === null) {
-    return <div className="p-10 text-sm text-nova-navy/40">Cargando…</div>;
+    return (
+      <main className="relative p-10">
+        <div className="mb-10 flex items-end justify-between gap-2">
+          <SkeletonBlock className="h-8 w-36" />
+          <SkeletonBlock className="h-8 w-28 rounded-full" />
+        </div>
+
+        <div className="overflow-hidden rounded-3xl border border-nova-navy/[0.04] bg-nova-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-4 border-b border-nova-navy/[0.04] px-4 py-3.5 last:border-b-0"
+            >
+              <SkeletonBlock className="h-[22px] w-[22px] shrink-0 rounded-full" />
+              <SkeletonBlock className="h-6 w-24 shrink-0 rounded-full" />
+              <SkeletonBlock className="h-4 flex-1 rounded-md" />
+              <SkeletonBlock className="hidden h-6 w-20 shrink-0 rounded-full sm:block" />
+              <SkeletonBlock className="hidden h-6 w-16 shrink-0 rounded-full sm:block" />
+            </div>
+          ))}
+        </div>
+      </main>
+    );
   }
 
   return (

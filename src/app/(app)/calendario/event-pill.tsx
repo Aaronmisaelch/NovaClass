@@ -75,7 +75,7 @@ export function EventPill({
       initial={{ boxShadow: REST_SHADOW_COMPACT }}
       whileHover={{ y: -1, boxShadow: HOVER_SHADOW_COMPACT }}
       transition={{ duration: 0.2, ease: EASE }}
-      className={`flex items-center gap-2 overflow-hidden rounded-xl border px-2.5 py-1.5 ${
+      className={`flex h-[18px] w-[18px] items-center justify-center gap-2 overflow-hidden rounded-full border sm:h-auto sm:w-auto sm:justify-start sm:rounded-xl sm:px-2.5 sm:py-1.5 ${
         isNeutral ? "border-dashed" : ""
       }`}
       style={{
@@ -83,9 +83,13 @@ export function EventPill({
         borderColor: event.style.borderColor,
       }}
     >
-      <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2} style={{ color: event.style.color }} />
+      <Icon
+        className="h-[10px] w-[10px] shrink-0 sm:h-3.5 sm:w-3.5"
+        strokeWidth={2}
+        style={{ color: event.style.color }}
+      />
       <span
-        className="truncate text-xs font-medium leading-tight"
+        className="hidden truncate text-xs font-medium leading-tight sm:inline"
         style={{ color: event.style.color }}
       >
         {getCompactLabel(event)}

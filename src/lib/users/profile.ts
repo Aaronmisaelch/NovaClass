@@ -1,4 +1,5 @@
 import "server-only";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { getAdminDb } from "@/lib/firebase/admin";
 import type { UserProfile } from "@/lib/users/types";
 
@@ -6,9 +7,38 @@ function usersCollection() {
   return getAdminDb().collection("users");
 }
 
-export async function getUserProfile(uid: string): Promise<UserProfile | null> {
+function profileCacheTag(uid: string): string {
+  return `user-profile-${uid}`;
+}
+
+async function fetchUserProfile(uid: string): Promise<UserProfile | null> {
   const snapshot = await usersCollection().doc(uid).get();
   return snapshot.exists ? (snapshot.data() as UserProfile) : null;
+}
+
+// The (app) shell layout reads this on every client-side navigation (it's a
+// Server Component using cookies(), so Next can't reuse it across routes —
+// see getSessionUser). That verification must stay uncached and run in
+// full every time, but the profile document behind it rarely changes, so a
+// short-lived cache here removes a Firestore round trip from the common
+// case (repeat navigations) without ever skipping the session check itself.
+export async function getUserProfile(uid: string): Promise<UserProfile | null> {
+  const getCached = unstable_cache(fetchUserProfile, ["user-profile", uid], {
+    revalidate: 20,
+    tags: [profileCacheTag(uid)],
+  });
+  return getCached(uid);
+}
+
+// Called from every server route that mutates the profile document, so an
+// edit is reflected immediately instead of waiting out the cache window
+// above. These are Route Handlers, not Server Actions, so `updateTag` (which
+// would otherwise be the read-your-own-writes API) isn't available here —
+// `{ expire: 0 }` is the documented equivalent for that context: it forces
+// an immediate expiry instead of `revalidateTag`'s default stale-while-
+// revalidate behavior.
+export function invalidateUserProfileCache(uid: string): void {
+  revalidateTag(profileCacheTag(uid), { expire: 0 });
 }
 
 export async function ensureUserProfile(

@@ -61,7 +61,7 @@ export function CalendarDayCell({
       </div>
 
       <div
-        className={`flex flex-1 flex-col gap-1 overflow-hidden transition-opacity duration-300 ${
+        className={`flex flex-1 flex-col gap-1.5 overflow-hidden transition-opacity duration-300 sm:gap-1 ${
           isCurrentMonth ? "" : "opacity-40"
         }`}
       >
