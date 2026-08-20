@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 
-const NAV_ITEMS = [
+export const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/schedule", label: "Schedule", icon: CalendarDays },
   { href: "/tareas", label: "Mis Tareas", icon: ListTodo },
@@ -73,7 +73,7 @@ export function Sidebar({
   return (
     <aside
       ref={asideRef}
-      className="sticky top-0 flex h-screen w-[14.5rem] shrink-0 flex-col overflow-hidden border-r border-nova-navy/5 bg-nova-white px-4 py-6"
+      className="sticky top-0 hidden h-screen w-[14.5rem] shrink-0 flex-col overflow-hidden border-r border-nova-navy/5 bg-nova-white px-4 py-6 sm:flex"
     >
       <div
         aria-hidden="true"

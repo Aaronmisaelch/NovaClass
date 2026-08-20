@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle } from "lucide-react";
 import { useAuth } from "@/lib/auth/auth-provider";
 import { OnboardingFlowBackground } from "@/app/onboarding-flow-background";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 function GoogleIcon() {
   return (
@@ -51,30 +55,34 @@ export function LoginView() {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full max-w-sm"
+        transition={{ duration: 0.6, ease: EASE }}
+        className="relative z-10 w-full max-w-[420px]"
       >
-        <div className="flex flex-col items-center gap-8 rounded-3xl border border-nova-navy/5 bg-nova-white p-10 shadow-[0_20px_60px_-30px_rgba(4,14,60,0.35)]">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center gap-2 text-center"
-          >
-            <div
-              className="h-10 w-10 rounded-xl"
-              style={{
-                background:
-                  "linear-gradient(135deg, #0A6DFD 0%, #2F94FD 55%, #57B9FD 100%)",
-              }}
-            />
-            <h1 className="text-xl font-semibold tracking-tight text-nova-navy">
-              NovaClass
-            </h1>
-            <p className="text-sm text-nova-navy/50">
-              Organiza tu vida académica en un solo lugar.
-            </p>
-          </motion.div>
+        <div className="flex flex-col items-center gap-8 rounded-3xl border border-nova-navy/[0.04] bg-nova-white p-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_1px_2px_-1px_rgba(4,14,60,0.06),0_18px_40px_-22px_rgba(4,14,60,0.18)]">
+          <div className="flex flex-col items-center gap-3 text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="relative h-14 w-14"
+            >
+              <Image src="/logo-mark.png" alt="NovaClass" fill sizes="56px" priority />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
+              className="flex flex-col items-center gap-2"
+            >
+              <h1 className="text-2xl font-bold tracking-tight text-nova-navy">
+                NovaClass
+              </h1>
+              <p className="text-sm text-nova-navy/50">
+                Organiza tu vida académica en un solo lugar.
+              </p>
+            </motion.div>
+          </div>
 
           <motion.button
             type="button"
@@ -86,18 +94,33 @@ export function LoginView() {
             className="flex w-full items-center justify-center gap-3 rounded-full border border-nova-navy/10 bg-nova-white px-6 py-3 text-sm font-medium text-nova-navy shadow-sm transition-colors hover:bg-nova-navy/[0.03] disabled:opacity-60"
           >
             <GoogleIcon />
-            {isSigningIn ? "Conectando..." : "Continuar con Google"}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={isSigningIn ? "connecting" : "idle"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: EASE }}
+              >
+                {isSigningIn ? "Conectando..." : "Continuar con Google"}
+              </motion.span>
+            </AnimatePresence>
           </motion.button>
 
-          {error && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-sm text-red-500"
-            >
-              {error}
-            </motion.p>
-          )}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className="flex items-center gap-2 text-sm text-red-500"
+              >
+                <AlertCircle className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <p className="text-center text-xs leading-relaxed text-nova-navy/40">
             El acceso a NovaClass requiere una cuenta de Google.
